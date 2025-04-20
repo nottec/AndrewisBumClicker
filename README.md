@@ -4,7 +4,7 @@ But Andrew is a bum fo sho
 
 His grade point average has been sold
 
-And his ECs are a little troll
+His ECs are a little troll
 
 
 
