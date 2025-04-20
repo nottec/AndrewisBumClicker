@@ -1,10 +1,10 @@
 I don't know what ive been told
 
-But Andrew is a bum fo sho
+Andrew is a bum fo sho
 
-His grade point average has been sold
+Grade point average has been sold
 
-His ECs are a little troll
+ECs are a little troll
 
 
 
