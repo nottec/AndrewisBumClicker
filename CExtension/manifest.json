@@ -1,5 +1,5 @@
 {
-  "name": "Andrew Bum Clicker",
+  "name": "Clicker",
   "description": "Base Level Extension",
   "version": "1.0",
   "manifest_version": 3,
@@ -15,6 +15,9 @@
       "matches": ["<all_urls>"]
       }
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "abumwebex.html"
   },
