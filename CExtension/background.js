@@ -2,7 +2,7 @@ console.log("background is here")
 let startTime;
 chrome.storage.local.get(['passivecount'], (data) => {
 if(data.passivecount){
-    console.log("its the port connection")
+    console.log("Pre-Port Listener Up & Passive Count True")
 }
 });
 
