@@ -4,6 +4,10 @@ chrome.storage.local.get(['passivecount'], (data) => {
 if(data.passivecount){
     console.log("Pre-Port Listener Up & Passive Count True")
 }
+
+else{
+    console.log("Pre-Port Listener Up & Passive Count False")
+}
 });
 
 chrome.runtime.onConnect.addListener((port) => {
