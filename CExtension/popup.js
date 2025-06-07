@@ -3,19 +3,25 @@ console.log("popup loaded");
 
 //initialize
 let count = 0;
-let vgcount = 0;
+let passivecount = 0;
 let increment = 1;
-let vgcost = 500;
-let sdelcost = 100;
-let passivecount = false;
+let passivecost = 500;
+let incrementcost = 100;
+let passive = false;
 
-
+updateCount()
 
 const port = chrome.runtime.connect({name: "popup"});
 
-port.onMessage.addListener(() => {
+port.onMessage.addListener((message) => {
+  
+  if(message.type === "changeupdate"){
+  document.getElementById("timer").innerText = message.data
+  }
+  else{
   //load it baybeeeeeee
   loadData();
+  }
 })
 //normal click
 document.getElementById("clickButton").addEventListener("click", function() {
@@ -32,18 +38,18 @@ document.getElementById("resetButton").addEventListener("click", function() {
 //----------------------------------------------------------------------------------------------------------------------
 //delete social media delete buy button
 document.getElementById("sdelButton").addEventListener("click", function() {
-  if(count>=sdelcost){
-    buysdel();
+  if(count>=incrementcost){
+    buyincrement();
   }
   saveData();
   updateCount();
 });
 
 //actual buy social media delete process
-function buysdel(){
-  count=count-sdelcost
+function buyincrement(){
+  count=count-incrementcost
   increment++;
-  sdelcost = 100+(100*(increment-1));
+  incrementcost = 100+(100*(increment-1));
   saveData()
   updateCount()
 }
@@ -51,19 +57,19 @@ function buysdel(){
 //---------------------------------------------------------------------------------------------------------------------
 //volunteer gig buy button
 document.getElementById("volunteerGigButton").addEventListener("click", function() {
-  if(count>=vgcost){
-    buyvg();
+  if(count>=passivecost){
+    buypassive();
   }
   saveData();
   updateCount();
 });
 
 //actual buy volunteer gig process (also starts the passive counting)
-function buyvg(){
-  count=count-vgcost;
-  vgcount++;
-  vgcost = 500+(200*vgcount);
-  passivecount=true;
+function buypassive(){
+  count=count-passivecost;
+  passivecount++;
+  passivecost = 500+(200*passivecount);
+  passive=true;
   saveData()
   updateCount()
 }
@@ -72,20 +78,23 @@ function buyvg(){
 //updates values for all count displays
 function updateCount() {
   document.getElementById("clickCount").innerText = count;
-  document.getElementById("volunteerGigCount").innerText = vgcount;
-  document.getElementById("volunteerGigButton").innerText = "Buy volunteering gig: (" + vgcost + ")";
-  document.getElementById("sdelButton").innerText = "Buy delete a social media app: (" + sdelcost + ")";
+  document.getElementById("volunteerGigCount").innerText = passivecount;
+  document.getElementById("volunteerGigButton").innerText = "Buy passive clicks: (" + passivecost + ")";
+  document.getElementById("sdelButton").innerText = "Buy click increase: (" + incrementcost + ")";
   document.getElementById("sdelCount").innerText = increment-1;
 } 
 
 setInterval(updateCount, 1000);
 
 setInterval(() => {
-  if (passivecount) {
-      count=count+vgcount;    
+  if (passive) {
+      count=count+passivecount;    
       chrome.storage.local.set({
         count
       })
+  }
+  else{
+    console.log("not constantly adding passivecount or storing")
   }
 },1000
 )
@@ -95,11 +104,11 @@ setInterval(() => {
 function saveData() {
   chrome.storage.local.set({
     count,
-    vgcount,
-    vgcost,
-    sdelcost,
+    passivecount,
+    passivecost,
+    incrementcost,
     increment,
-    passivecount
+    passive
   })
 }
 
@@ -107,22 +116,27 @@ function saveData() {
 function loadData() {
   chrome.storage.local.get([
     'count',
-    'vgcount',
-    'vgcost',
-    'sdelcost',
-    'increment',
     'passivecount',
+    'passivecost',
+    'incrementcost',
+    'increment',
+    'passive',
     'newcount'
   ], (data) => {
-    vgcount = data.vgcount ?? 0;
-    vgcost = data.vgcost ?? 500;
-    sdelcost = data.sdelcost ?? 100;
+    passivecount = data.passivecount ?? 0;
+    passivecost = data.passivecost ?? 500;
+    incrementcost = data.incrementcost ?? 100;
     increment = data.increment ?? 1;
-    passivecount = data.passivecount ?? false;
+    passive = data.passive ?? false;
+    if(passive){
     count = data.newcount??data.count??0
+    }
+    else{
+    count=data.count??0
+    }
     updateCount();
-    if(vgcount>0){
-      passivecount=true;
+    if(passivecount>0){
+      passive=true;
     }
   })
 }
@@ -130,14 +144,16 @@ function loadData() {
 //reset function
 function reset() {
   count = 0;
-  vgcount = 0;
+  passivecount = 0;
   increment = 1;
-  sdelcost = 100;
-  vgcost = 500;
-  passivecount = false;
+  incrementcost = 100;
+  passivecost = 500;
+  passive = false;
+  newcount = 0;
   chrome.storage.local.set({
   startTime: Date.now()
   });
+  document.getElementById("timer").innerText = 0;
   saveData();
   updateCount();
 }
