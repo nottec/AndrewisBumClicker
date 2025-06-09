@@ -37,7 +37,7 @@ document.getElementById("resetButton").addEventListener("click", function() {
 
 //----------------------------------------------------------------------------------------------------------------------
 //delete social media delete buy button
-document.getElementById("sdelButton").addEventListener("click", function() {
+document.getElementById("increaseincrementbutton").addEventListener("click", function() {
   if(count>=incrementcost){
     buyincrement();
   }
@@ -56,7 +56,7 @@ function buyincrement(){
 
 //---------------------------------------------------------------------------------------------------------------------
 //volunteer gig buy button
-document.getElementById("volunteerGigButton").addEventListener("click", function() {
+document.getElementById("increasepassivebutton").addEventListener("click", function() {
   if(count>=passivecost){
     buypassive();
   }
@@ -78,10 +78,10 @@ function buypassive(){
 //updates values for all count displays
 function updateCount() {
   document.getElementById("clickCount").innerText = count;
-  document.getElementById("volunteerGigCount").innerText = passivecount;
-  document.getElementById("volunteerGigButton").innerText = "Buy passive clicks: (" + passivecost + ")";
-  document.getElementById("sdelButton").innerText = "Buy click increase: (" + incrementcost + ")";
-  document.getElementById("sdelCount").innerText = increment-1;
+  document.getElementById("passivecount").innerText = passivecount;
+  document.getElementById("increasepassivebutton").innerText = "Buy passive clicks: (" + passivecost + ")";
+  document.getElementById("increaseincrementbutton").innerText = "Buy click increase: (" + incrementcost + ")";
+  document.getElementById("incrementcount").innerText = increment-1;
 } 
 
 setInterval(updateCount, 1000);

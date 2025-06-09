@@ -1,22 +1,47 @@
 <html>
+    <head>
+        <style>
+            body {background-color: darkcyan; width:500px; height: 500px;}
+
+            .container {
+                text-align: center;
+            }
+        </style>
+    </head>
 <body>
 
-<p style="font-size: 10px; width:500px">Average Clicker Game!</p>
+<div class = "container">
+<h1>Average Clicker Game!</h1>
+</div>
 
-<button id="clickButton">Click to gain... clicks?</button>
-<p>Clicks: <span id="clickCount">0</span></p>
+<div class = "container">
+    <button id="clickButton">Click to gain... clicks?</button>
+    <h1>Clicks: <span id="clickCount">0</span></h1>
+</div>
 
-<button id="sdelButton">Click to click better!</button>
-<p>Clicks upgraded: <span id="sdelCount">0</span></p>
+<div class = "container">
+    <button id="increaseincrementbutton">Click to click better!</button>
+    <h1>Clicks upgraded: <span id="incrementcount">0</span></h1>
+</div>
 
-<button id="volunteerGigButton">Click to click without clicking!</button>
-<p>Passive clickers bought: <span id="volunteerGigCount">0</span></p>
+<div class = "container">
+    <button id="increasepassivebutton">Click to click without clicking!</button>
+    <h1>Passive clickers bought: <span id="passivecount">0</span></h1>
+</div>
 
-<button id="resetButton">Click to reset.</button>
+<div class = "container">
+    <button id="resetButton">Click to reset.</button>
+</div>
+
+<div class = "container">
 <h1>
 Amount of clicks gained since last open:
 </h1>
+</div>
+
+<div class = "container">
 <h1 id="timer">0</h1>
+</div>
 
 <script src = "popup.js"></script>
 </body>
