@@ -14,13 +14,13 @@ else{
 chrome.runtime.onConnect.addListener((port) => {
     if (port.name==="popup") {
         console.log("bgside popupwindow open connect")
-        chrome.storage.local.get(['startTime', 'passive','count','passivecount'], (data) => {
+        chrome.storage.local.get(['startTime', 'passive','count','passivecount','passiveCountTwo','passiveCountThree'], (data) => {
             if(data.passive){
                 console.log("passive count is true")
                 const elapsedTime = Date.now() - (data.startTime??Date.now());
                 const seconds = Math.floor((elapsedTime) / 1000);
                 const oldcount = (data.count??0)
-                const newcount = (data.count ?? 0) + ((data.passivecount ?? 0)*seconds);
+                const newcount = (data.count ?? 0) + (((data.passivecount ?? 0)+(data.passiveCountTwo??0)+(data.passiveCountThree??0))*seconds);
                 console.log ((data.count??0) + "-->"+(newcount))
                 chrome.storage.local.set({newcount})
                 port.postMessage("data_ready")
